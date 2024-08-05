@@ -4,5 +4,5 @@ output "tls_private_key" {
 }
 
 output "public_ip_address" {
-  value = azurerm_linux_virtual_machine.defcon-vm.public_ip_address
+  value = azurerm_linux_virtual_machine.dedcon-vm.public_ip_address
 }

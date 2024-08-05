@@ -1,4 +1,3 @@
-resource "azurerm_resource_group" "rg-prd-defcon" {
-  name     = "rg-prd-defcon"
-  location = "East US 2"
+data "azurerm_resource_group" "rg-prd-dedcon" {
+  name = "rg-prd-dedcon"
 }

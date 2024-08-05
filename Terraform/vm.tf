@@ -1,21 +1,21 @@
-# Create (and display) an SSH key
+# Create an SSH key
 resource "tls_private_key" "ssh_key" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
-resource "azurerm_linux_virtual_machine" "defcon-vm" {
-  name                = "defcon-vm"
-  resource_group_name = azurerm_resource_group.rg-prd-defcon.name
-  location            = azurerm_resource_group.rg-prd-defcon.location
-  size                = "Standard_B1ls"
+resource "azurerm_linux_virtual_machine" "dedcon-vm" {
+  name                = "dedcon-vm"
+  resource_group_name = data.azurerm_resource_group.rg-prd-dedcon.name
+  location            = data.azurerm_resource_group.rg-prd-dedcon.location
+  size                = "Standard_A1_v2"
   admin_username      = "azureuser"
   network_interface_ids = [
-    azurerm_network_interface.defcon-vm-nic.id,
+    azurerm_network_interface.dedcon-vm-nic.id,
   ]
 
   # Using filebase64 to encode script
-  custom_data = filebase64("${path.root}/scripts/deploy-defcon.sh")
+  custom_data = filebase64("${path.root}/scripts/deploy-dedcon.sh")
 
   admin_ssh_key {
     username   = "azureuser"
