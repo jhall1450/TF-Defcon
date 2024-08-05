@@ -8,14 +8,14 @@ resource "azurerm_linux_virtual_machine" "dedcon-vm" {
   name                = "dedcon-vm"
   resource_group_name = data.azurerm_resource_group.rg-prd-dedcon.name
   location            = data.azurerm_resource_group.rg-prd-dedcon.location
-  size                = "Standard_A1_v2"
+  size                = "Standard_B1s"
   admin_username      = "azureuser"
   network_interface_ids = [
     azurerm_network_interface.dedcon-vm-nic.id,
   ]
 
   # Using filebase64 to encode script
-  custom_data = filebase64("${path.root}/scripts/deploy-dedcon.sh")
+  custom_data = base64encode(data.template_file.setup_script.rendered)
 
   admin_ssh_key {
     username   = "azureuser"

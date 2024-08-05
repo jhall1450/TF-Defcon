@@ -16,7 +16,7 @@ resource "azurerm_virtual_network" "dedcon-vnet" {
 resource "azurerm_subnet" "dedcon-snet" {
   name                 = "dedcon-snet"
   resource_group_name  = data.azurerm_resource_group.rg-prd-dedcon.name
-  virtual_network_name = azurerm_virtual_network.rg-vnet.name
+  virtual_network_name = azurerm_virtual_network.dedcon-vnet.name
   address_prefixes     = ["10.0.10.0/29"]
 }
 
@@ -56,7 +56,7 @@ resource "azurerm_network_security_rule" "dedcon-rule" {
   access                      = "Allow"
   protocol                    = "Udp"
   source_port_range           = "*"
-  destination_port_range      = "5010"
+  destination_port_range      = var.dedcon_server_port
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
 }
